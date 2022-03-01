@@ -1,0 +1,31 @@
+{
+	"name": "DS_DadosAbertosGold",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ConnDataLake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DadosAbertos"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('DadosAbertosGold_',formatDateTime(utcnow(),'yyyyMMdd'),'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "GOLD",
+				"fileSystem": "container1"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

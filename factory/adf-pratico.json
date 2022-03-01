@@ -1,0 +1,9 @@
+{
+	"name": "adf-pratico",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1bd27767-f6be-4d4b-a1ee-a4d907d421ac",
+		"tenantId": "6100fc99-610d-4d93-b338-52114d1ed9cf"
+	}
+}

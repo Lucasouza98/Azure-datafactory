@@ -1,0 +1,44 @@
+{
+	"name": "DadosAbertos",
+	"properties": {
+		"folder": {
+			"name": "DF_DadosAbertos"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_DadosAbertosRaw",
+						"type": "DatasetReference"
+					},
+					"name": "DadosAbertos"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_DadosAbertosGold",
+						"type": "DatasetReference"
+					},
+					"name": "DadosAbertosGold"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelectCorrecaoColunas"
+				},
+				{
+					"name": "RankDadosAbertos"
+				},
+				{
+					"name": "RemovendoVaziosColunas"
+				},
+				{
+					"name": "OrdenandoColunas"
+				}
+			],
+			"script": "source(output(\n\t\turi as string,\n\t\tnome as string,\n\t\tidLegislaturaInicial as short,\n\t\tidLegislaturaFinal as short,\n\t\tnomeCivil as string,\n\t\tcpf as string,\n\t\tsiglaSexo as string,\n\t\turlRedeSocial as string,\n\t\turlWebsite as string,\n\t\tdataNascimento as date,\n\t\tdataFalecimento as date,\n\t\tufNascimento as string,\n\t\tmunicipioNascimento as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> DadosAbertos\nDadosAbertos select(mapColumn(\n\t\tnome,\n\t\tidLegislaturaInicial,\n\t\tidLegislaturaFinal,\n\t\tnomeCivil,\n\t\tsiglaSexo,\n\t\tdataNascimento,\n\t\tdataFalecimento,\n\t\tufNascimento,\n\t\tmunicipioNascimento\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCorrecaoColunas\nSelectCorrecaoColunas rank(asc(nome, true),\n\toutput(ID as long)) ~> RankDadosAbertos\nRankDadosAbertos derive(dataNascimento = iifNull(toString(dataNascimento),'Sem informacao'),\n\t\tdataFalecimento = iifNull(toString(dataFalecimento),'Sem informacao'),\n\t\tufNascimento = iifNull(toString(ufNascimento),'Sem informacao'),\n\t\tmunicipioNascimento = iifNull(toString(municipioNascimento),'Sem informacao')) ~> RemovendoVaziosColunas\nRemovendoVaziosColunas select(mapColumn(\n\t\tID,\n\t\tnome,\n\t\tnomeCivil,\n\t\tidLegislaturaInicial,\n\t\tidLegislaturaFinal,\n\t\tsiglaSexo,\n\t\tdataNascimento,\n\t\tdataFalecimento,\n\t\tufNascimento,\n\t\tmunicipioNascimento\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> OrdenandoColunas\nOrdenandoColunas sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['DadosAbertos_final.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> DadosAbertosGold"
+		}
+	}
+}

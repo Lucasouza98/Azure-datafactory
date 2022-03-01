@@ -1,0 +1,58 @@
+{
+	"name": "Sql_tblDadosAbertos",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQLServer_DadosAbertos",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "varchar"
+			},
+			{
+				"name": "nome",
+				"type": "varchar"
+			},
+			{
+				"name": "nomeCivil",
+				"type": "varchar"
+			},
+			{
+				"name": "idLegislaturaInicial",
+				"type": "varchar"
+			},
+			{
+				"name": "idLegislaturaFinal",
+				"type": "varchar"
+			},
+			{
+				"name": "siglaSexo",
+				"type": "varchar"
+			},
+			{
+				"name": "dataNascimento",
+				"type": "varchar"
+			},
+			{
+				"name": "dataFalecimento",
+				"type": "varchar"
+			},
+			{
+				"name": "ufNascimento",
+				"type": "varchar"
+			},
+			{
+				"name": "municipioNascimento",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DadosAbertos_final"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

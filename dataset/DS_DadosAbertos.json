@@ -1,0 +1,24 @@
+{
+	"name": "DS_DadosAbertos",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DadosAbertos",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DadosAbertos"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "deputados",
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "/arquivos/deputados/xlsx/deputados.xlsx"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

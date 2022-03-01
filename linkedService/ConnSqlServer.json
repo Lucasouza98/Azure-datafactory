@@ -1,0 +1,12 @@
+{
+	"name": "ConnSqlServer",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=server-sql-azure-edbd.database.windows.net;initial catalog=bd_moviesdb;user id=adminedbd",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDhBRUI3OTYzLTU3NzAtNDMzRS04RUM0LUVGNjVGMjQ3REZBQ182YmI5ODlmZS00ZDBjLTQ3NGYtYjAyYi00ZTE0Njg0NmFjMGMiDQp9"
+		}
+	}
+}

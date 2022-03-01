@@ -1,0 +1,48 @@
+{
+	"name": "HO_DTFMovies",
+	"properties": {
+		"description": "Hands-on data flow movies",
+		"folder": {
+			"name": "Tranf_movies"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_moviesweb",
+						"type": "DatasetReference"
+					},
+					"name": "MoviesDL"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_MoviesWebGold",
+						"type": "DatasetReference"
+					},
+					"name": "MoviesDLGold"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelectCorrecaoColuna"
+				},
+				{
+					"name": "MoviesAcima1950"
+				},
+				{
+					"name": "DerivadoGenres"
+				},
+				{
+					"name": "RankMoviesByRating"
+				},
+				{
+					"name": "AggregateRatings"
+				}
+			],
+			"script": "source(output(\n\t\tmovies as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\trating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoviesDL\nMoviesDL select(mapColumn(\n\t\tmovies,\n\t\ttitle,\n\t\tgenres,\n\t\tyear,\n\t\trating,\n\t\t{Rotten Tomato} = {Rotton Tomato}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCorrecaoColuna\nSelectCorrecaoColuna filter(toInteger(year) > 1950) ~> MoviesAcima1950\nMoviesAcima1950 derive(PrimaryGenrer = iif(locate('|', genres) > 1, left(genres, locate('|',genres) - 1), genres)) ~> DerivadoGenres\nDerivadoGenres window(over(PrimaryGenrer,\n\t\tyear),\n\tasc({Rotten Tomato}, true),\n\tRatingsRank = rank()) ~> RankMoviesByRating\nRankMoviesByRating aggregate(groupBy(PrimaryGenrer,\n\t\tyear),\n\tAverageRating = avg(toInteger({Rotten Tomato})),\n\t\tHighRated = first(title),\n\t\tLastRated = last(title),\n\t\tNumberOfMovies = count()) ~> AggregateRatings\nAggregateRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['MoviesDLFinal.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> MoviesDLGold"
+		}
+	}
+}

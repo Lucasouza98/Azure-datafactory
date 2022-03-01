@@ -1,0 +1,31 @@
+{
+	"name": "DS_tblmoviescsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ConnDataLake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Pipeline_sql_to_datalake"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat('movies_',formatDateTime(utcnow(),'yyyyMMddHHmm'),'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "RAW",
+				"container": "container1"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

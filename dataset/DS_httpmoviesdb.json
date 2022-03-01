@@ -1,0 +1,25 @@
+{
+	"name": "DS_httpmoviesdb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ConnHttpServer",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Pipeline_web_to_sql"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,48 @@
+{
+	"name": "DS_tblMovies",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ConnSqlServer",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Pipeline_web_to_sql"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "movies",
+				"type": "varchar"
+			},
+			{
+				"name": "title",
+				"type": "varchar"
+			},
+			{
+				"name": "genres",
+				"type": "varchar"
+			},
+			{
+				"name": "year",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "rating",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Rotton Tomato",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tblMovies"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

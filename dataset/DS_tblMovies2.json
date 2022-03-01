@@ -1,0 +1,48 @@
+{
+	"name": "DS_tblMovies2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ConnAzureSQL",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Pipeline_sql_to_datalake"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "movies",
+				"type": "varchar"
+			},
+			{
+				"name": "title",
+				"type": "varchar"
+			},
+			{
+				"name": "genres",
+				"type": "varchar"
+			},
+			{
+				"name": "year",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "rating",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Rotton Tomato",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tblMovies"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

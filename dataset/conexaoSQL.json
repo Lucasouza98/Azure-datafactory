@@ -63,7 +63,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "DEPUTADO"
+			"table": "deputados"
 		}
 	}
 }

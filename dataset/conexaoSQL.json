@@ -1,0 +1,69 @@
+{
+	"name": "conexaoSQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "connSql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "uri",
+				"type": "varchar"
+			},
+			{
+				"name": "nome",
+				"type": "varchar"
+			},
+			{
+				"name": "idLegislaturaInicial",
+				"type": "varchar"
+			},
+			{
+				"name": "idLegislaturaFinal",
+				"type": "varchar"
+			},
+			{
+				"name": "nomeCivil",
+				"type": "varchar"
+			},
+			{
+				"name": "cpf",
+				"type": "varchar"
+			},
+			{
+				"name": "siglaSexo",
+				"type": "varchar"
+			},
+			{
+				"name": "urlRedeSocial",
+				"type": "varchar"
+			},
+			{
+				"name": "urlWebsite",
+				"type": "varchar"
+			},
+			{
+				"name": "dataNascimento",
+				"type": "varchar"
+			},
+			{
+				"name": "dataFalecimento",
+				"type": "varchar"
+			},
+			{
+				"name": "ufNascimento",
+				"type": "varchar"
+			},
+			{
+				"name": "municipioNascimento",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DEPUTADO"
+		}
+	}
+}
